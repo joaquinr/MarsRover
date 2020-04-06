@@ -1,0 +1,157 @@
+﻿{
+  "x-generator": "NSwag v13.3.0.0 (NJsonSchema v10.1.11.0 (Newtonsoft.Json v12.0.0.0))",
+  "swagger": "2.0",
+  "info": {
+    "title": "My Title",
+    "version": "1.0.0"
+  },
+  "consumes": [
+    "application/json",
+    "text/json",
+    "application/*+json"
+  ],
+  "produces": [
+    "text/plain",
+    "application/json",
+    "text/json"
+  ],
+  "paths": {
+    "/Rover": {
+      "post": {
+        "tags": [
+          "Rover"
+        ],
+        "operationId": "Rover_SimulateRun",
+        "parameters": [
+          {
+            "name": "input",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/RoverInput"
+            },
+            "x-nullable": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "x-nullable": false,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/RoverReport"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "RoverReport": {
+      "type": "object",
+      "required": [
+        "battery",
+        "finalPosition"
+      ],
+      "properties": {
+        "visitedCells": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Location"
+          }
+        },
+        "samplesCollected": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "battery": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "finalPosition": {
+          "$ref": "#/definitions/PositionDto"
+        }
+      }
+    },
+    "Location": {
+      "type": "object",
+      "required": [
+        "x",
+        "y"
+      ],
+      "properties": {
+        "x": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "y": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "PositionDto": {
+      "type": "object",
+      "required": [
+        "location",
+        "facing"
+      ],
+      "properties": {
+        "location": {
+          "$ref": "#/definitions/Location"
+        },
+        "facing": {
+          "$ref": "#/definitions/Direction"
+        }
+      }
+    },
+    "Direction": {
+      "type": "integer",
+      "description": "",
+      "x-enumNames": [
+        "North",
+        "South",
+        "East",
+        "West"
+      ],
+      "enum": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "RoverInput": {
+      "type": "object",
+      "required": [
+        "battery",
+        "initialPosition"
+      ],
+      "properties": {
+        "terrain": {
+          "type": "array",
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "battery": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "commands": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "initialPosition": {
+          "$ref": "#/definitions/PositionDto"
+        }
+      }
+    }
+  }
+}
